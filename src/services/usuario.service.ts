@@ -6,11 +6,13 @@ import SegurancaService from "./seguranca.service";
 import ValidacaoErro from "./validacao_erro.service";
 import UsuarioRepository from "../repositories/usuario.repository";
 import { Request } from "express";
+import TMensagem from "../@types/mensagem.type";
 
 class UsuarioService {
    private _usuarioRepository : UsuarioRepository;
    private _utils : Utils;
    private _validacaoErro : ValidacaoErro;
+   private _erros : Array<TMensagem>;
     
    constructor() {
       this._usuarioRepository = new UsuarioRepository();
@@ -29,20 +31,7 @@ class UsuarioService {
          return this._utils.MontarJsonRetorno(eStatusHTTP.ERRO, objRetorno);
       }
    }
-
-   public async BuscarUsuarioById(AReq: Request): Promise<TRetornoObjetoResponse> {
-      try {
-         const uuid = AReq['query']['uuid'];
-         const retornoUsuarios = await this._usuarioRepository.BuscarId(uuid?.toString())
-
-         return this._utils.MontarJsonRetorno(eStatusHTTP.SUCESSO, retornoUsuarios);
-      
-      } catch (error) {
-         const objRetorno = this._validacaoErro.TratarErros(error);
-         return this._utils.MontarJsonRetorno(eStatusHTTP.ERRO, objRetorno);
-      }
-   }
-
+   
    public async CadastrarUsuario(AReq: Request): Promise<TRetornoObjetoResponse> {
       try {
          const usuario = <Usuario>AReq['body']['usuario'];
@@ -61,17 +50,25 @@ class UsuarioService {
       }
    }
 
-   public async EditarUsuario(AReq: Request): Promise<TRetornoObjetoResponse> {
+   public async AtualizarUsuario(AReq: Request): Promise<TRetornoObjetoResponse> {
       try {
          const usuario = <Usuario>AReq['body']['usuario'];
          const senha_criptografada = SegurancaService.Criptografar(usuario.senha);
-         const token = SegurancaService.GerarRefreshToken(usuario.email, '10s');
+         this._erros = new Array<TMensagem>();
 
          usuario['senha'] = senha_criptografada;
 
-         const retornoUsuario = await this._usuarioRepository.Atualizar(usuario)
+         const usuarioById = await this._usuarioRepository.BuscarById(usuario.id)
 
-         return this._utils.MontarJsonRetorno(eStatusHTTP.SUCESSO, this._utils.AlterarObjeto(retornoUsuario, {token}, 'senha'));
+         if (usuarioById)
+         {
+            const retornoUsuario = await this._usuarioRepository.Atualizar(usuario)
+            return this._utils.MontarJsonRetorno(eStatusHTTP.SUCESSO, {});
+         }
+
+         this._erros.push({codigo: '22', descricao : 'Usuário não localizado para atualização dos dados.'});
+
+         return this._utils.MontarJsonRetorno(eStatusHTTP.NAO_LOCALIZADO, this._erros);
       
       } catch (error) {
          const objRetorno = this._validacaoErro.TratarErros(error);

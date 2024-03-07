@@ -9,7 +9,7 @@ class UsuarioRepository {
         return usuarios
    }
 
-   public async BuscarId(uuid: string | undefined): Promise<Usuario> {
+   public async BuscarById(uuid: string): Promise<Usuario> {
       const usuario = await database.usuario.findFirst({
          where : {
             id: uuid ? uuid : ''
@@ -38,19 +38,6 @@ class UsuarioRepository {
       return usuario;
    }
 
-   // public async AlterarSenha(AModel: Omit<Usuario, 'id'>): Promise<number> {
-
-   //  const usuario = await database.usuario.updateMany({
-   //       where: {
-   //          email: AModel.email,
-   //       },
-   //       data: {
-   //          senha: AModel.senha,
-   //       },
-   //    });
-
-   //    return usuario.count;
-   // }
 } 
 
 export default UsuarioRepository;

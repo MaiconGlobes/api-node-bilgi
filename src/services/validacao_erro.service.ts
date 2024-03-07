@@ -63,7 +63,7 @@ class ValidacaoErro {
       const reg_duplicado = regex.test(AErro?.message);
 
       if (reg_duplicado)
-         resultado = `Banco de dados inválido\n#:${AErro?.message}`;
+         resultado = `Erro crítico no banco de dados\n\n##:${AErro?.message}`;
 
       AArrayErros.push(this._validacaoServices.DuplicidadeDeRegistro(AErro?.table ? AErro.table : 'Banco de dados', resultado));
       return this._utils.MontarJsonRetorno(eStatusHTTP.REGISTRO_DUPLICADO, AArrayErros);;
