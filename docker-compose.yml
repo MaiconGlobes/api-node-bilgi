@@ -28,11 +28,13 @@ services:
       - ./prisma:/app/prisma
     environment:
       MYSQL_URL: "mysql://root@mysql:3306/public"
-    # command: sh -c yarn prisma migrate deploy && yarn && yarn build && yarn start
+
+    # command: sh -c yarn build && yarn prisma migrate dev && yarn start
     # command: sh -c 
     #           npx prisma migrate deploy && 
     #           yarn build"
-    # command: ["yarn", "prisma", "migrate", "deploy"]
+    
+    # command: ["yarn", "start"]
 
 volumes:
   mysql_data:
