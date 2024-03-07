@@ -1,0 +1,38 @@
+#docker-compose up --build
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: public
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3005:3005" 
+    depends_on:
+      - mysql
+    volumes:
+      - ./src:/app/src
+      - ./dist:/app/dist
+      - ./prisma:/app/prisma
+    environment:
+      MYSQL_URL: "mysql://root@mysql:3306/public"
+    # command: sh -c yarn prisma migrate deploy && yarn && yarn build && yarn start
+    # command: sh -c 
+    #           npx prisma migrate deploy && 
+    #           yarn build"
+    # command: ["yarn", "prisma", "migrate", "deploy"]
+
+volumes:
+  mysql_data:

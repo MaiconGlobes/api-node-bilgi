@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+      "target": "es6",//es6
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "moduleResolution": "Node",
+      "outDir": "./dist",
+      "strict": true,
+      "forceConsistentCasingInFileNames": false,
+      "strictPropertyInitialization": false,
+      "skipLibCheck": true,
+      "types": ["node", "@prisma/client"],
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
+  

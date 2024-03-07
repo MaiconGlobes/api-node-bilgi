@@ -1,0 +1,6 @@
+export enum eCodigoErro {
+    VALUE_TO_LONG_MYSQL = '22001',
+    VALUE_NOT_PRESENT_MYSQL = '23503',
+    DUPLICATE_KEY_VALUE_MYSQL = 'P2002',
+    INPUT_INVALID_MYSQL = '22P02',
+  }
