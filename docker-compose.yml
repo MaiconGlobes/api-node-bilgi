@@ -1,5 +1,5 @@
 #docker-compose up --build
-version: '3.8'
+version: "3.8"
 
 services:
   mysql:
@@ -18,23 +18,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: api_bilgi
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 60s sh /usr/app/scripts/entrypoint.sh
     ports:
-      - "3005:3005" 
-    depends_on:
-      - mysql
+      - "3005:3005"
     volumes:
-      - ./src:/app/src
-      - ./dist:/app/dist
-      - ./prisma:/app/prisma
+      - ./:/usr/app
     environment:
       MYSQL_URL: "mysql://root@mysql:3306/public"
-
-    # command: sh -c yarn build && yarn prisma migrate dev && yarn start
-    # command: sh -c 
-    #           npx prisma migrate deploy && 
-    #           yarn build"
-    
-    # command: ["yarn", "start"]
+    depends_on:
+      - mysql
 
 volumes:
   mysql_data:
+    driver: local
