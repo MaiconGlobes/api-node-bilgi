@@ -21,4 +21,4 @@ RUN chmod +x /usr/app/scripts/entrypoint.sh
 
 RUN chmod 777 /usr/app/scripts/entrypoint.sh
 
-EXPOSE 3000
+EXPOSE 3005
