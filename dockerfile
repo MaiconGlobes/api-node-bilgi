@@ -1,28 +1,24 @@
 FROM node:16-alpine
 
-WORKDIR /app
+WORKDIR /usr/app
 
-COPY package*.json ./
+ENV DOCKERIZE_VERSION v0.7.0
 
-RUN npm install yarn
+RUN apk update --no-cache \
+    && apk add --no-cache wget openssl \
+    && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
+    && apk del wget
 
-RUN yarn add --dev typescript
-
-#RUN npm cache clean --force 
-#RUN rm -rf node_modules    
+COPY ./package.json ./
 
 COPY . .
 
-RUN yarn add prisma   
-RUN yarn add ts-node
+RUN npm install yarn
+
 RUN yarn
 
-RUN yarn prisma generate
+RUN chmod +x /usr/app/scripts/entrypoint.sh
 
-# RUN yarn prisma migrate dev
+RUN chmod 777 /usr/app/scripts/entrypoint.sh
 
-RUN yarn build
-
-EXPOSE 3005
-
-CMD [ "yarn", "start" ]
+EXPOSE 3000
