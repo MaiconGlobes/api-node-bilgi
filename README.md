@@ -13,3 +13,17 @@ docker-compose up -d
 docker-compose up -d --build
 
 ```
+Em ambiente de desenvolvimento a aplicação NodeJS não apresentou erros ao ser executada. Em caso de erros junto ao docker, rodar a API separadamente para análise.
+
+```bash
+# Rode os comandos
+yarn
+yarn prisma generate
+yarn prisma migrate dev
+yarn build
+yarn start
+
+# Para debug
+yarn dev
+
+```
