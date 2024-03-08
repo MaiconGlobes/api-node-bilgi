@@ -28,7 +28,7 @@ yarn dev
 
 ```
 ## Rotas 🌍
-O swagger ainda não foi implementado, então as rotas estão disponiveis abaixo:
+O swagger ainda não foi implementado, então as rotas estão disponiveis abaixo, lembrando que nenhum possui token no header.
 - GET    : /usuario/listar-usuario
 - POST   : /usuario/cadastrar-usuario
 - PUT    : /usuario/editar-usuario
@@ -80,5 +80,67 @@ O swagger ainda não foi implementado, então as rotas estão disponiveis abaixo
 ```bash
 [NO BODY] -> [QUERY] /deletar-usuario?id=41ebb372-c938-47b8-aed4-87337f9c894c
 ```
+## Padrão de retorno
+SUCESSO: 200 OK - [Listar todos]
+```bash
+{
+  "retorno": {
+    "status": "Sucesso",
+    "codigo_status": 1,
+    "dados": [
+      {
+        "id": "ae51ae8c-55f8-4299-b522-69f3f769cbd5",
+        "nome": "Maico Damião Globes",
+        "cpf": "44444444444",
+        "data_nascimento": "2005-01-01T00:00:00.000Z",
+        "endereco": "Avenida 9 JG",
+        "numero": null,
+        "bairro": null,
+        "municipio": "ddd",
+        "uf": "",
+        "cep": "13502470",
+        "email": "maico-globes@hotmail.com"
+      }
+    ]
+  }
+}
+```
 
-
+SUCESSO: 201 Created - [Criar registro]
+```bash
+{
+  "retorno": {
+    "status": "Sucesso",
+    "codigo_status": 1,
+    "dados": {
+      "id": "ceda1851-c21c-4f78-b212-c936daf9aee3",
+      "nome": "Alguém 72024p.m.39PM39PM39",
+      "cpf": "48000000399",
+      "data_nascimento": "2024-03-08T00:00:00.000Z",
+      "endereco": "",
+      "numero": "S/N",
+      "bairro": "bairro teste",
+      "municipio": "Rio Rio Claro",
+      "uf": "SP",
+      "cep": "13502470",
+      "email": "1709858919@teste.com",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjE3MDk4NTg5MTlAdGVzdGUuY29tIiwidGlwbyI6InJlZnJlc2hfdG9rZW4iLCJpYXQiOjE3MDk4NTg5MTksImV4cCI6MTcwOTg1ODkyOX0.o5x1-X8GMKsDKZwzRhvUUslEJuF1H94itaYCXTjPICs"
+    }
+  }
+}
+```
+SUCESSO: 200 Ok - [Registro não localizado]
+```bash
+{
+  "retorno": {
+    "status": "Não localizado",
+    "codigo_status": 3,
+    "mensagens": [
+      {
+        "codigo": "22",
+        "descricao": "Usuário não localizado para exclusão dos dados."
+      }
+    ]
+  }
+}
+```
