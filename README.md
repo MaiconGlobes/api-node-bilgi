@@ -37,44 +37,48 @@ O swagger ainda não foi implementado, então as rotas estão disponiveis abaixo
 ## Request e Response 📜
 - GET : http://localhost:3005/v1/api/usuario/listar-usuario
 ```bash
-NO BODY
+[NO BODY]
 ```
 - POST : http://localhost:3005/v1/api/usuario/cadastrar-usuario
 ```bash
-  {
-  	"usuario": {
-  		"nome": "Joao paulo assis",
-  		"email": "joao@teste.com",
-  		"senha": "123456",
-  		"cpf": "98585810921",
-  		"data_nascimento": "2024-03-08T04:08:53.468Z",
-  		"endereco": "Rua teste",
-  		"numero": "S/N",
-  		"bairro": "bairro teste",
-  		"municipio": "Rio Claro",
-  		"uf": "SP",
-  		"cep": "13502450"
-  	}
+{
+  "usuario": {
+    "nome": "Joao paulo assis",
+    "email": "joao@teste.com",
+    "senha": "123456",
+    "cpf": "98585810921",
+    "data_nascimento": "2024-03-08T04:08:53.468Z",
+    "endereco": "Rua teste",
+    "numero": "S/N",
+    "bairro": "bairro teste",
+    "municipio": "Rio Claro",
+    "uf": "SP",
+    "cep": "13502450"
   }
+}
 ```
 - PUT : http://localhost:3005/v1/api/usuario/editar-usuario
 ```bash
-  {
-    "usuario": {
-      "id": "03755555-20fe-43f4-b8bb-edc518b7145b",
-      "nome": "Joao paulo assis",
-      "email": "joao@teste.com",
-      "senha": "123456",
-      "cpf": "98585810921",
-      "data_nascimento": "2024-03-08T04:08:53.468Z",
-      "endereco": "Rua teste",
-      "numero": "S/N",
-      "bairro": "bairro teste",
-      "municipio": "Rio Claro",
-      "uf": "SP",
-      "cep": "13502450"
-    }
+{
+  "usuario": {
+    "id": "03755555-20fe-43f4-b8bb-edc518b7145b",
+    "nome": "Joao paulo assis",
+    "email": "joao@teste.com",
+    "senha": "123456",
+    "cpf": "98585810921",
+    "data_nascimento": "2024-03-08T04:08:53.468Z",
+    "endereco": "Rua teste",
+    "numero": "S/N",
+    "bairro": "bairro teste",
+    "municipio": "Rio Claro",
+    "uf": "SP",
+    "cep": "13502450"
   }
+}
+```
+- DELETE : http://localhost:3005/v1/api/usuario/editar-usuario
+```bash
+[NO BODY] -> [QUERY] /deletar-usuario?id=41ebb372-c938-47b8-aed4-87337f9c894c
 ```
 
 
