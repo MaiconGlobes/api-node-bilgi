@@ -38,6 +38,16 @@ class UsuarioRepository {
       return usuario;
    }
 
+   public async Excluir(AUser: Usuario): Promise<Usuario> {
+      const usuario = await database.usuario.delete({
+         where : {
+            id: AUser.id
+         },
+      })
+
+      return usuario;
+   }
+
 } 
 
 export default UsuarioRepository;

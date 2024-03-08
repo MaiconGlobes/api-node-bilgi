@@ -75,6 +75,29 @@ class UsuarioService {
          return this._utils.MontarJsonRetorno(eStatusHTTP.ERRO, objRetorno);
       }
    }
+
+   public async ExcluirUsuario(AReq: Request): Promise<TRetornoObjetoResponse> {
+      try {
+         const UIID = <string>AReq['query']['id'];
+         this._erros = new Array<TMensagem>();
+
+         const usuarioById = await this._usuarioRepository.BuscarById(UIID)
+
+         if (usuarioById)
+         {
+            const retornoUsuario = await this._usuarioRepository.Excluir(usuarioById)
+            return this._utils.MontarJsonRetorno(eStatusHTTP.SUCESSO, retornoUsuario);
+         }
+
+         this._erros.push({codigo: '22', descricao : 'Usuário não localizado para exclusão dos dados.'});
+
+         return this._utils.MontarJsonRetorno(eStatusHTTP.NAO_LOCALIZADO, this._erros);
+      
+      } catch (error) {
+         const objRetorno = this._validacaoErro.TratarErros(error);
+         return this._utils.MontarJsonRetorno(eStatusHTTP.ERRO, objRetorno);
+      }
+   }
 }
 
 export default UsuarioService;
