@@ -21,6 +21,6 @@ import UsuarioMiddleware from '../middlewares/usuario.middleware';
 	usuarioRoutes.delete(
 		'/deletar-usuario', 
 		UsuarioMiddleware.ValidarDelecao, //corrigir as validações de deleção (uuid valido)
-		usuarioController.ProcessarCadastrarUsuario);
+		usuarioController.ProcessarExcluirUsuario);
 
 export { usuarioRoutes };

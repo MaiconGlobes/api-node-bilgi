@@ -12,6 +12,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 
 app.use(express.json());
 app.use('/v1/api', routes);
+
 app.use(ValidarEntradasSistemaMiddleware.ValidarEntrada);
 
 app.listen(3005, () => {
