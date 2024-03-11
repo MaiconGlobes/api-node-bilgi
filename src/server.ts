@@ -6,7 +6,10 @@ const cors = require('cors');
 const express = require('express')
 const app = express()
 
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3005'
+}));
 app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
 
